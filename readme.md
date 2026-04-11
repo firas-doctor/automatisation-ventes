@@ -1,4 +1,4 @@
-# 📊 Automatisation des Ventes — Projet de Fin d'Année
+#  Automatisation des Ventes — Projet de Fin d'Année
 
 > **Matière :** Logiciels  
 > **Auteur :** Med Firas Dhahri  
@@ -6,14 +6,14 @@
 
 ---
 
-## 📌 Description
+##  Description
 
 Script Python qui automatise l'analyse des données de ventes d'une entreprise e-commerce.  
 Il lit un fichier CSV, effectue tous les calculs financiers (CA Brut, CA Net, TVA), affiche un résumé et exporte les résultats.
 
 ---
 
-## 🗂️ Structure du projet
+##  Structure du projet
 
 ```
 pfa_ventes/
@@ -22,13 +22,12 @@ pfa_ventes/
 ├── resultats_final.csv    # Résultats exportés (généré à l'exécution)
 ├── graphiques_ventes.png  # Graphiques Matplotlib (bonus)
 ├── requirements.txt       # Dépendances Python
-├── .gitignore             # Fichiers exclus de Git
 └── README.md              # Ce fichier
 ```
 
 ---
 
-## ⚙️ Installation & Configuration
+##  Installation & Configuration
 
 ### 1. Prérequis
 
@@ -38,7 +37,7 @@ pfa_ventes/
 ### 2. Cloner le dépôt
 
 ```bash
-git clone https://github.com/<votre-username>/pfa_ventes.git
+git clone https://github.com/firas-doctor/automatisation-ventes
 cd pfa_ventes
 ```
 
@@ -56,7 +55,7 @@ python -m venv venv
 venv\Scripts\activate.bat
 ```
 
-> ✅ Votre terminal affichera `(venv)` devant le prompt une fois activé.
+>  Votre terminal affichera `(venv)` devant le prompt une fois activé.
 
 ### 4. Installer les dépendances
 
@@ -66,7 +65,7 @@ pip install -r requirements.txt
 
 ---
 
-## 🚀 Utilisation
+##  Utilisation
 
 ### Exécution standard (génère `ventes.csv` automatiquement)
 
@@ -90,7 +89,7 @@ ID,Prix,Quantite,Remise
 
 ---
 
-## 📐 Formules utilisées
+##  Formules utilisées
 
 | Colonne     | Formule                            |
 |-------------|------------------------------------|
@@ -101,7 +100,7 @@ ID,Prix,Quantite,Remise
 
 ---
 
-## 📤 Fichiers générés
+##  Fichiers générés
 
 | Fichier                | Description                                          |
 |------------------------|------------------------------------------------------|
@@ -111,7 +110,7 @@ ID,Prix,Quantite,Remise
 
 ---
 
-## 🔧 Dépendances
+##  Dépendances
 
 Voir `requirements.txt` :
 
@@ -123,7 +122,7 @@ matplotlib>=3.8
 
 ---
 
-## 🌿 Workflow Git recommandé
+##  Workflow Git recommandé
 
 ```bash
 # Initialiser (première fois)
@@ -151,7 +150,7 @@ git checkout -b feature/export-excel  # pour une future extension
 
 ---
 
-## 📸 Exemple de sortie console
+##  Exemple de sortie console
 
 ```
 [OK] Fichier 'ventes.csv' généré avec 8 produits.
@@ -175,6 +174,6 @@ git checkout -b feature/export-excel  # pour une future extension
 
 ---
 
-## 📝 Licence
+##  Licence
 
 Projet académique — Faculté des Sciences de Tunis.
