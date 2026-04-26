@@ -9,7 +9,7 @@ try:
 except ImportError:
     MATPLOTLIB_AVAILABLE = False
 
-TVA_TAUX = 0.21  # 20 %
+TVA_TAUX = 0.20  # 20 %
 
 def generer_ventes_csv(chemin: str = "ventes.csv") -> None:
     """Génère un fichier ventes.csv avec des données d'exemple."""
