@@ -130,7 +130,20 @@ def afficher_graphiques(resultats: list[dict]) -> None:
     plt.show()
     print("[OK] Graphique sauvegardé dans 'graphiques_ventes.png'.")
  
- 
+ def exporter_excel(resultats: list[dict], chemin: str = "resultats_final.xlsx") -> None:
+    try:
+        import openpyxl
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        ws.title = "Résultats Ventes"
+        colonnes = ["ID","Prix","Quantite","Remise","CA_Brut","CA_Net","TVA","CA_TTC"]
+        ws.append(colonnes)
+        for r in resultats:
+            ws.append([r[c] for c in colonnes])
+        wb.save(chemin)
+        print(f"[OK] Export Excel → '{chemin}'")
+    except ImportError:
+        print("[SKIP] openpyxl absent — export Excel ignoré.")
 # ── Point d'entrée ────────────────────────────────────────────────────────────
  
 def main():
