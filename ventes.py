@@ -151,6 +151,7 @@ def afficher_graphiques(resultats: list[dict]) -> None:
     plt.show()
     print("[OK] Graphique sauvegardé dans 'graphiques_ventes.png'.")
  
+ 
 # ── Point d'entrée ────────────────────────────────────────────────────────────
  
 def main():
