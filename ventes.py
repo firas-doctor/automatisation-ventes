@@ -85,13 +85,26 @@ def identifier_top_produit(resultats: list[dict]) -> dict:
  
 # ── 7. Export resultats_final.csv ─────────────────────────────────────────────
  
-def exporter_resultats(resultats: list[dict], chemin: str = "resultats_final.csv") -> None:
-    colonnes = ["ID", "Prix", "Quantite", "Remise", "CA_Brut", "CA_Net", "TVA", "CA_TTC"]
-    with open(chemin, "w", newline="", encoding="utf-8") as f:
-        writer = csv.DictWriter(f, fieldnames=colonnes)
-        writer.writeheader()
-        writer.writerows(resultats)
-    print(f"\n[OK] Résultats exportés dans '{chemin}'.")
+def exporter_excel(resultats, chemin="resultats_final.xlsx"):
+    try:
+        import openpyxl
+        wb = openpyxl.Workbook()
+        ws = wb.active
+        ws.title = "Résultats Ventes"
+        
+        # Headers
+        colonnes = ["ID","Prix","Quantite","Remise",
+                    "CA_Brut","CA_Net","TVA","CA_TTC"]
+        ws.append(colonnes)
+        
+        # Data rows
+        for r in resultats:
+            ws.append([r[c] for c in colonnes])
+            
+        wb.save(chemin)
+        print(f"[OK] Export Excel → '{chemin}'")
+    except ImportError:
+        print("[SKIP] openpyxl absent — export Excel ignoré.")
  
  
 # ── Bonus : Graphiques Matplotlib ────────────────────────────────────────────
@@ -100,36 +113,43 @@ def afficher_graphiques(resultats: list[dict]) -> None:
     if not MATPLOTLIB_AVAILABLE:
         print("[SKIP] Matplotlib absent — graphiques non générés.")
         return
- 
-    ids    = [r["ID"]     for r in resultats]
+
+    ids = [r["ID"] for r in resultats]
     ca_net = [r["CA_Net"] for r in resultats]
     ca_ttc = [r["CA_TTC"] for r in resultats]
- 
+
+    couleurs = ['#2196F3','#4CAF50','#FF9800','#E91E63',
+                '#9C27B0','#00BCD4','#FF5722','#607D8B']
+
     fig, axes = plt.subplots(1, 2, figsize=(14, 5))
-    fig.suptitle("Analyse des Ventes", fontsize=14, fontweight="bold")
- 
-    # Graphique 1 : CA Net par produit (barres)
-    axes[0].bar(ids, ca_net, color="steelblue", edgecolor="white")
-    axes[0].set_title("CA Net par produit")
-    axes[0].set_xlabel("ID Produit")
-    axes[0].set_ylabel("CA Net (€)")
+    fig.suptitle("Analyse des Ventes — PFA 2025/2026",
+                 fontsize=14, fontweight="bold")
+
+    bars = axes[0].bar(ids, ca_net, color=couleurs, edgecolor="white")
+    axes[0].set_title("CA Net par Produit", fontsize=13, fontweight='bold')
+    axes[0].set_xlabel("ID Produit", fontsize=11)
+    axes[0].set_ylabel("CA Net (€)", fontsize=11)
     axes[0].grid(axis="y", linestyle="--", alpha=0.5)
- 
-    # Graphique 2 : Répartition CA TTC (camembert)
+    for bar, val in zip(bars, ca_net):
+        axes[0].text(bar.get_x() + bar.get_width()/2,
+                     bar.get_height() + 1,
+                     f"{val}€", ha='center', va='bottom',
+                     fontsize=9, fontweight='bold')
+
     axes[1].pie(
         ca_ttc,
         labels=ids,
         autopct="%1.1f%%",
         startangle=140,
-        colors=plt.cm.Paired.colors,
+        colors=couleurs,
+        shadow=True
     )
-    axes[1].set_title("Répartition du CA TTC")
- 
+    axes[1].set_title("Répartition du CA TTC", fontsize=13, fontweight='bold')
+
     plt.tight_layout()
-    plt.savefig("graphiques_ventes.png", dpi=150)
+    plt.savefig("graphiques_ventes.png", dpi=150, bbox_inches='tight')
     plt.show()
     print("[OK] Graphique sauvegardé dans 'graphiques_ventes.png'.")
- 
  
 # ── Point d'entrée ────────────────────────────────────────────────────────────
  
